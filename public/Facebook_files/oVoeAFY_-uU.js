@@ -1,0 +1,3 @@
+if (self.CavalryLogger) { CavalryLogger.start_js(["MYZvI"]); }
+
+__d("MontageCardGIF_gifAttachment.graphql",[],(function(a,b,c,d,e,f){"use strict";a={kind:"Fragment",name:"MontageCardGIF_gifAttachment",type:"MessageAnimatedImage",metadata:null,argumentDefinitions:[],selections:[{kind:"LinkedField",alias:null,name:"animated_image",storageKey:'animated_image(media_type:"image/webp")',args:[{kind:"Literal",name:"media_type",value:"image/webp",type:"String"}],concreteType:"Image",plural:!1,selections:[{kind:"ScalarField",alias:null,name:"uri",args:null,storageKey:null}]}]};e.exports=a}),null);
