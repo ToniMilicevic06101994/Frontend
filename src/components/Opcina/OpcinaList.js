@@ -16,13 +16,10 @@ class OpcinaList extends Component {
   renderRows = () => {
     const { opcine } = this.props;
     return opcine.payload.map((opcina) => {
-      let path = `/currency/${opcina.id}`;
       return (
         <tr key={opcina.id}>
-          <td> {opcina.id} </td>
-          <td>
-            <Link to={path}> {opcina.id} </Link>
-          </td>
+          <td> {opcina.sifra} </td>
+          <td> {opcina.naziv} </td>
         </tr>
       );
     });
@@ -46,6 +43,8 @@ class OpcinaList extends Component {
   }
 
   render() {
+    console.log(this.props.opcine);
+    
     return (
       <DocumentTitle title="Općine: Lista">
         <div>

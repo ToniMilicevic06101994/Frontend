@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 let izboriService = {
-  apiEndpoint: 'https://api.coinmarketcap.com/v1/ticker/',
+  apiEndpoint: 'http://127.0.0.1:51575/api',
   
   getAll() {
-    return axios.get(`${this.apiEndpoint}`)
+    return axios.get(`${this.apiEndpoint}/izbori/all`)
       .then(res => res);
   },
 

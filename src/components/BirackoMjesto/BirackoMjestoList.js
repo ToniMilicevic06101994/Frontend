@@ -15,14 +15,11 @@ class BirackoMjestoList extends Component {
   renderRows = () => {
     const { birackaMjesta } = this.props;
     return birackaMjesta.payload.map((birackoMjesto) => {
-      let path = `/currency/${birackoMjesto.id}`;
       return (
         <tr key={birackoMjesto.id}>
-          <td> {birackoMjesto.id} </td>
-          <td>
-            <Link to={path}> {birackoMjesto.id} </Link>
-          </td>
-          <td> {birackoMjesto.id} </td>
+          <td> {birackoMjesto.sifra} </td>
+          <td> {birackoMjesto.naziv} </td>
+          <td> {birackoMjesto.lokacija} </td>
         </tr>
       );
     });

@@ -20,14 +20,11 @@ class KandidatList extends Component {
   renderRows = () => {
     const { kandidati } = this.props;
     return kandidati.payload.map((kandidat) => {
-      let path = `/currency/${kandidat.id}`;
       return (
         <tr key={kandidat.id}>
-          <td> {kandidat.id} </td>
-          <td>
-            <Link to={path}> {kandidat.id} </Link>
-          </td>
-          <td> {kandidat.id} </td>
+          <td> {kandidat.imePrezime} </td>
+          <td> {kandidat.adresa} </td>
+          <td> {kandidat.jmbg} </td>
           <td>
             <Button
               bsStyle="danger"
@@ -41,7 +38,7 @@ class KandidatList extends Component {
   };
 
   renderKandidati() {
-    const columns = ['ime', 'prezime', 'jmbg']
+    const columns = ['ime i prezime', 'adresa', 'jmbg']
     const kandidati = this.props.kandidati.payload;
     if(kandidati.length > 0) {
       return (

@@ -1,7 +1,7 @@
 export default class Lokacija {
   constructor(data) {
     this.id = data.id;
-    this.naziv = data.naziv  || null;
-    this.adresa = data.adresa || null;
+    this.naziv = data.naziv  || '';
+    this.adresa = data.adresa || '';
   }
 }

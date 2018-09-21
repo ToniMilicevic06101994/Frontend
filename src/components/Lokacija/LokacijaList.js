@@ -15,13 +15,10 @@ class LokacijaList extends Component {
   renderRows = () => {
     const { lokacije } = this.props;
     return lokacije.payload.map((lokacija) => {
-      let path = `/currency/${lokacija.id}`;
       return (
         <tr key={lokacija.id}>
-          <td> {lokacija.id} </td>
-          <td>
-            <Link to={path}> {lokacija.id} </Link>
-          </td>
+          <td> {lokacija.naziv} </td>
+          <td> {lokacija.adresa}</td>
         </tr>
       );
     });

@@ -15,13 +15,10 @@ class IzbornaJedinicaList extends Component {
   renderRows = () => {
     const { izborneJedinice } = this.props;
     return izborneJedinice.payload.map((izbornaJedinica) => {
-      let path = `/currency/${izbornaJedinica.id}`;
       return (
         <tr key={izbornaJedinica.id}>
-          <td> {izbornaJedinica.id} </td>
-          <td>
-            <Link to={path}> {izbornaJedinica.id} </Link>
-          </td>
+          <td> {izbornaJedinica.sifra} </td>
+          <td> {izbornaJedinica.naziv} </td>
         </tr>
       );
     });

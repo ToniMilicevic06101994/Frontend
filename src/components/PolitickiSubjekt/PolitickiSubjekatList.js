@@ -20,14 +20,11 @@ class PolitickiSubjekatList extends Component {
   renderRows = () => {
     const { politickiSubjekti } = this.props;
     return politickiSubjekti.payload.map((politickiSubjekt) => {
-      let path = `/currency/${politickiSubjekt.id}`;
       return (
         <tr key={politickiSubjekt.id}>
-          <td> {politickiSubjekt.id} </td>
-          <td>
-            <Link to={path}> {politickiSubjekt.id} </Link>
-          </td>
-          <td> {politickiSubjekt.id} </td>
+          <td> {politickiSubjekt.sifra} </td>
+          <td> {politickiSubjekt.naziv} </td>
+          <td> {politickiSubjekt.adresa} </td>
           <td>
             <Button
               bsStyle="danger"

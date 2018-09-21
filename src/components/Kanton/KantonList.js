@@ -15,13 +15,10 @@ class KantonList extends Component {
   renderRows = () => {
     const { kantoni } = this.props;
     return kantoni.payload.map((kanton) => {
-      let path = `/currency/${kanton.id}`;
       return (
         <tr key={kanton.id}>
-          <td> {kanton.id} </td>
-          <td>
-            <Link to={path}> {kanton.id} </Link>
-          </td>
+          <td> {kanton.sifra} </td>
+          <td> {kanton.naziv} </td>
         </tr>
       );
     });

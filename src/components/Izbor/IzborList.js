@@ -15,14 +15,11 @@ class IzborList extends Component {
   renderRows = () => {
     const { izbori } = this.props;
     return izbori.payload.map((izbor) => {
-      let path = `/currency/${izbor.id}`;
       return (
         <tr key={izbor.id}>
-          <td> {izbor.id} </td>
-          <td>
-            <Link to={path}> {izbor.id} </Link>
-          </td>
-          <td> {izbor.id} </td>
+          <td> {izbor.vrstaIzbora} </td>
+          <td> {izbor.nivoIzbora} </td>
+          <td> {izbor.datumOdrzavanja} </td>
         </tr>
       );
     });
