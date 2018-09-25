@@ -1,5 +1,5 @@
 export default class Kandidat {
-  constructor(data) {
+  constructor(data) {  
     this.id = data.id;
     this.imePrezime = data.imePrezime || '';
     this.jmbg = data.jmbg || '';

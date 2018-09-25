@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 let kandidatiService = {
-  apiEndpoint: 'http://127.0.0.1:51575/api',
+  apiEndpoint: 'http://127.0.0.1:51575/api/kandidat',
 
   getAll(params = {}) {
-    return axios.get(`${this.apiEndpoint}/kandidat/all`, { params: params })
+    return axios.get(`${this.apiEndpoint}/all`, { params: params })
       .then(res => res);
   },
 
@@ -13,8 +13,8 @@ let kandidatiService = {
       .then(json => json);
   },
 
-  update(kandidatId, payload) {
-    return axios.patch(`${this.apiEndpoint}/${kandidatId}`, { kandidat: payload })
+  update(payload) {
+    return axios.put(`${this.apiEndpoint}`, payload)
       .then(json => json);
   },
 
@@ -24,7 +24,7 @@ let kandidatiService = {
   },
 
   save(payload) {
-    return axios.post(`${this.apiEndpoint}`,  {kandidat: payload})
+    return axios.post(`${this.apiEndpoint}`, payload)
       .then(json => json);
   }
 }

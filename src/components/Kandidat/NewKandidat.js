@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 import { FormControl, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import kandidatActions from '../../actions/kandidatActions';
 import { withRouter} from 'react-router-dom';
-
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 class NewKandidat extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       kandidat: {
-        ime: props.ime || '',
-        prezime: props.prezime || '',
-        jmbg: props.jmbg || '',
-        adresa: props.adresa || '',
-        telefon: props.telefon || '',
-        email: props.email || ''
+        imePrezime: '',
+        jmbg: '',
+        adresa: '',
+        telefon: '',
+        email: ''
       }
     }
 
@@ -27,8 +27,7 @@ class NewKandidat extends Component {
   resetState() {
     this.setState({
       kandidat: {
-        ime: this.props.ime || '',
-        prezime: this.props.prezime || '',
+        imePrezime: this.props.imePrezime || '',
         jmbg: this.props.jmbg || '',
         adresa: this.props.adresa || '',
         telefon: this.props.telefon || '',
@@ -41,13 +40,10 @@ class NewKandidat extends Component {
     e.preventDefault();
 
     let payload = this.state.kandidat;
-
-    /*if (this.props.accountId){
-      payload.account_id = this.props.accountId;
-    }*/
-
-    kandidatActions.saveKandidat(payload);
-    this.props.history.push('/politickiSubjekti')
+    this.props.saveKandidat(payload)
+      .then(json => {
+        this.props.history.push('/kandidati')
+      });
   }
 
   onChange(e) {
@@ -73,19 +69,11 @@ class NewKandidat extends Component {
         <form onSubmit={this.onSubmit}>
           <div className="submit-form">
             <FormGroup className="form-group-left">
-              <ControlLabel>Ime</ControlLabel>
+              <ControlLabel>Ime i prezime</ControlLabel>
               <FormControl
                 className=""
-                name="ime"
-                value={kandidat.ime}
-                onChange={this.onChange}
-              />
-            </FormGroup>
-            <FormGroup>
-              <ControlLabel>Prezime</ControlLabel>
-              <FormControl
-                name="prezime"
-                value={kandidat.prezime}
+                name="imePrezime"
+                value={kandidat.imePrezime}
                 onChange={this.onChange}
               />
             </FormGroup>
@@ -142,4 +130,16 @@ class NewKandidat extends Component {
   }
 }
 
-export default NewKandidat;
+function mapStateToProps(state) {
+  return {
+    kandidat: state.kandidat
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    saveKandidat: kandidatActions.saveKandidat
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewKandidat);

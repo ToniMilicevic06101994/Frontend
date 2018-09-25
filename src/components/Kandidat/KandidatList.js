@@ -14,15 +14,19 @@ class KandidatList extends Component {
   };
 
   deleteKandidat = (id) => {
-    this.props.deleteKandidat(id);
+    this.props.deleteKandidat(id)
+      .then(json => {
+        this.props.getKandidati();
+      });
   };
 
   renderRows = () => {
     const { kandidati } = this.props;
     return kandidati.payload.map((kandidat) => {
+      let path = `/kandidat/${kandidat.id}/edit`;
       return (
         <tr key={kandidat.id}>
-          <td> {kandidat.imePrezime} </td>
+          <td> <Link to={path}>{kandidat.imePrezime} </Link></td>
           <td> {kandidat.adresa} </td>
           <td> {kandidat.jmbg} </td>
           <td>

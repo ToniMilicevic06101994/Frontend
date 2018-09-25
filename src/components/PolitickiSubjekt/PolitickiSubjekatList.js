@@ -14,16 +14,20 @@ class PolitickiSubjekatList extends Component {
   };
 
   deletePolitickiSubjekt = (id) => {
-    this.props.deletePolitickiSubjekt(id);
+    this.props.deletePolitickiSubjekt(id)
+      .then(json => {
+        this.props.getPolitickiSubjekti();
+      });
   };
 
   renderRows = () => {
     const { politickiSubjekti } = this.props;
     return politickiSubjekti.payload.map((politickiSubjekt) => {
+      let path = `/politickiSubjekt/${politickiSubjekt.id}/edit`;
       return (
         <tr key={politickiSubjekt.id}>
           <td> {politickiSubjekt.sifra} </td>
-          <td> {politickiSubjekt.naziv} </td>
+          <td> <Link to={path}>{politickiSubjekt.naziv} </Link></td>
           <td> {politickiSubjekt.adresa} </td>
           <td>
             <Button

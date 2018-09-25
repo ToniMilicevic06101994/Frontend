@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 let politickiSubjektiService = {
-  apiEndpoint: 'http://127.0.0.1:51575/api',
+  apiEndpoint: 'http://127.0.0.1:51575/api/politickiSubjekt',
 
   getAll(params = {}) {
-    return axios.get(`${this.apiEndpoint}/politickiSubjekt/all`, { params: params })
+    return axios.get(`${this.apiEndpoint}/all`, { params: params })
       .then(res => res);
   },
   
@@ -13,8 +13,8 @@ let politickiSubjektiService = {
       .then(json => json);
   },
 
-  update(politickiSubjektId, payload) {
-    return axios.patch(`${this.apiEndpoint}/${politickiSubjektId}`, { politickiSubjekt: payload })
+  update(payload) {
+    return axios.put(`${this.apiEndpoint}`, payload)
       .then(json => json);
   },
 
@@ -24,7 +24,7 @@ let politickiSubjektiService = {
   },
 
   save(payload) {
-    return axios.post(`${this.apiEndpoint}`, { politickiSubjekt: payload })
+    return axios.post(`${this.apiEndpoint}`, payload)
       .then(json => json);
   }
 }

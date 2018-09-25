@@ -10,7 +10,7 @@ export function saveDone(json) {
 export function fetchDone(res) {
   return {
     type: 'KANDIDAT_FETCHED',
-    payload: res.data[0]
+    payload: res.data
   };
 }
 
@@ -25,13 +25,15 @@ export function saveKandidat(izbor) {
 
 export function deleteKandidat(kandidatId) {
   return dispatch => {
-    return kandidatiService.delete(kandidatId);
+    console.log('delete service')
+    return kandidatiService.delete(kandidatId)
+      .then(json => json);
   }
 }
 
-export function updateKandidat(kandidatId, payload) {
+export function updateKandidat(payload) {
   return dispatch => {
-    return kandidatiService.update(kandidatId, payload)
+    return kandidatiService.update(payload)
       .then((json) => {
         dispatch(saveDone(json));
       });
@@ -39,9 +41,11 @@ export function updateKandidat(kandidatId, payload) {
 }
 
 export function getKandidat(kandidatId, params = {}) {
-  return async dispatch => {
-    const res = await kandidatiService.get(kandidatId, params)
-    dispatch(fetchDone(res));
+  return dispatch => {
+    return kandidatiService.get(kandidatId)
+    .then((json) => {
+      dispatch(fetchDone(json));
+    });
   };
 }
 

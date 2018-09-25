@@ -10,7 +10,7 @@ export function saveDone(json) {
 export function fetchDone(res) {
   return {
     type: 'POLITICKI_SUBJEKT_FETCHED',
-    payload: res.data[0]
+    payload: res.data
   };
 }
 
@@ -30,9 +30,9 @@ export function deletePolitickiSubjekt(politickiSubjektId) {
   }
 }
 
-export function updatePolitickiSubjekt(politickiSubjektId, payload) {
+export function updatePolitickiSubjekt(payload) {
   return dispatch => {
-    return politickiSubjektiService.update(politickiSubjektId, payload)
+    return politickiSubjektiService.update(payload)
       .then((json) => {
         dispatch(saveDone(json));
       });

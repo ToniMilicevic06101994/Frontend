@@ -2,18 +2,21 @@ import React, { Component } from 'react';
 import { FormControl, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import politickiSubjektActions from '../../actions/politickiSubjektActions';
 import { withRouter } from 'react-router-dom';
-
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 class EditPolitickiSubjekt extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       politickiSubjekt: {
-        sifra: props.sifra || '',
-        naziv: props.naziv || '',
-        grad: props.grad || '',
-        adresa: props.adresa || '',
-        telefon: props.telefon || ''
+        id: '',
+        sifra: '',
+        naziv: '',
+        grad: '',
+        adresa: '',
+        telefon: ''
       }
     }
 
@@ -23,14 +26,28 @@ class EditPolitickiSubjekt extends Component {
     this.onCancelClick = this.onCancelClick.bind(this);
   }
 
+  componentWillMount = () => {
+    this.getPolitickiSubjektDetails();
+  };
+
+  getPolitickiSubjektDetails = () => {
+    const politickiSubjektId = this.props.match.params.id;
+    this.props.getPolitickiSubjekt(politickiSubjektId)
+      .then(json => {
+        this.resetState();
+      })
+  };
+
   resetState() {
+    const politickiSubjekt = this.props.politickiSubjekt.payload;
     this.setState({
       politickiSubjekt: {
-        sifra: this.props.sifra || '',
-        naziv: this.props.naziv || '',
-        grad: this.props.grad || '',
-        adresa: this.props.adresa || '',
-        telefon: this.props.telefon || ''
+        id: politickiSubjekt.id,
+        sifra: politickiSubjekt.sifra || '',
+        naziv: politickiSubjekt.naziv || '',
+        grad: politickiSubjekt.grad || '',
+        adresa: politickiSubjekt.adresa || '',
+        telefon: politickiSubjekt.telefon || ''
       }
     });
   }
@@ -39,11 +56,10 @@ class EditPolitickiSubjekt extends Component {
     e.preventDefault();
     let payload = this.state.politickiSubjekt;
 
-    /*if (this.props.accountId){
-      payload.account_id = this.props.accountId;
-    }*/
-    politickiSubjektActions.updatePolitickiSubjekt(payload);
-    this.props.history.push('/politickiSubjekti')
+    this.props.updatePolitickiSubjekt(payload)
+      .then(json => {
+        this.props.history.push('/politickiSubjekti');
+      });
   }
 
   onChange(e) {
@@ -65,6 +81,13 @@ class EditPolitickiSubjekt extends Component {
 
     return (
       <div>
+        <Link to={'/politickiSubjekti'}>
+          <Button
+            className="link"
+             bsStyle="link"
+             > Back to list
+          </Button>
+        </Link>
         <ControlLabel>Izmijeni politički subjekt</ControlLabel>
         <form onSubmit={this.onSubmit}>
           <div className="submit-form">
@@ -130,4 +153,17 @@ class EditPolitickiSubjekt extends Component {
   }
 }
 
-export default EditPolitickiSubjekt;
+function mapStateToProps(state) {
+  return {
+    politickiSubjekt: state.politickiSubjekt
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    getPolitickiSubjekt: politickiSubjektActions.getPolitickiSubjekt,
+    updatePolitickiSubjekt: politickiSubjektActions.updatePolitickiSubjekt
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditPolitickiSubjekt)

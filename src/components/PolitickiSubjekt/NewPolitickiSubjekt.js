@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 import { FormControl, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import politickiSubjektActions from '../../actions/politickiSubjektActions';
 import { withRouter } from 'react-router-dom';
-
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 class NewPolitickiSubjekt extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       politickiSubjekt: {
-        sifra: props.sifra || '',
-        naziv: props.naziv || '',
-        grad: props.grad || '',
-        adresa: props.adresa || '',
-        telefon: props.telefon || ''
+        sifra: '',
+        naziv: '',
+        grad: '',
+        adresa: '',
+        telefon: ''
       }
     }
 
@@ -39,11 +40,10 @@ class NewPolitickiSubjekt extends Component {
     e.preventDefault();
     let payload = this.state.politickiSubjekt;
 
-    /*if (this.props.accountId){
-      payload.account_id = this.props.accountId;
-    }*/
-    politickiSubjektActions.savePolitickiSubjekt(payload);
-    this.props.history.push('/politickiSubjekti')
+    this.props.savePolitickiSubjekt(payload)
+      .then(json => {
+        this.props.history.push('/politickiSubjekti');
+      });
   }
 
   onChange(e) {
@@ -130,4 +130,16 @@ class NewPolitickiSubjekt extends Component {
   }
 }
 
-export default NewPolitickiSubjekt;
+function mapStateToProps(state) {
+  return {
+    politickiSubjekt: state.politickiSubjekt
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    savePolitickiSubjekt: politickiSubjektActions.savePolitickiSubjekt
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewPolitickiSubjekt);

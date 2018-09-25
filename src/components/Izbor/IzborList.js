@@ -6,6 +6,7 @@ import { Table, Button } from 'react-bootstrap';
 import izboriActions from '../../actions/izboriActions.js';
 import ColumnsTitle from '../shared/ColumnsTitle';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 class IzborList extends Component {
   componentDidMount = () => {
@@ -19,7 +20,7 @@ class IzborList extends Component {
         <tr key={izbor.id}>
           <td> {izbor.vrstaIzbora} </td>
           <td> {izbor.nivoIzbora} </td>
-          <td> {izbor.datumOdrzavanja} </td>
+          <td> {moment(izbor.datumOdrzavanja).format('DD-MM-YYYY')} </td>
         </tr>
       );
     });

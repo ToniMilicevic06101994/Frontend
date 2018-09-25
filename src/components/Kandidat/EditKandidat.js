@@ -2,19 +2,20 @@ import React, { Component } from 'react';
 import { FormControl, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import kandidatActions from '../../actions/kandidatActions';
 import { withRouter } from 'react-router-dom';
-
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 class EditKandidat extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       kandidat: {
-        ime: props.ime || '',
-        prezime: props.prezime || '',
-        jmbg: props.jmbg || '',
-        adresa: props.adresa || '',
-        telefon: props.telefon || '',
-        email: props.email || ''
+        id: '',
+        imePrezime: '',
+        jmbg: '',
+        adresa: '',
+        telefon: '',
+        email: ''
       }
     }
 
@@ -24,30 +25,40 @@ class EditKandidat extends Component {
     this.onCancelClick = this.onCancelClick.bind(this);
   }
 
+  componentWillMount = () => {
+    this.getKandidatDetails();
+  };
+
+  getKandidatDetails = () => {
+    const kandidatId = this.props.match.params.id;
+    this.props.getKandidat(kandidatId)
+      .then(json => {
+        this.resetState();
+      })
+  };
+
   resetState() {
+    const kandidat = this.props.kandidat.payload;
     this.setState({
       kandidat: {
-        ime: this.props.ime || '',
-        prezime: this.props.prezime || '',
-        jmbg: this.props.jmbg || '',
-        adresa: this.props.adresa || '',
-        telefon: this.props.telefon || '',
-        email: this.props.email || ''
+        id: kandidat.id,
+        imePrezime: kandidat.imePrezime || '',
+        jmbg: kandidat.jmbg || '',
+        adresa: kandidat.adresa || '',
+        telefon: kandidat.telefon || '',
+        email: kandidat.email || ''
       }
     });
   }
 
   onSubmit(e) {
-    e.preventDefault();
+  
 
     let payload = this.state.kandidat;
-
-    /*if (this.props.accountId){
-      payload.account_id = this.props.accountId;
-    }*/
-
-    kandidatActions.updateKandidat(payload.id, payload);
-    this.props.history.push('/politickiSubjekti')
+    this.props.updateKandidat(payload)
+      .then(json => {
+        this.props.history.push('/kandidati');
+      });
   }
 
   onChange(e) {
@@ -69,23 +80,22 @@ class EditKandidat extends Component {
 
     return (
       <div>
+        <Link to={'/kandidati'}>
+          <Button
+            className="link"
+             bsStyle="link"
+             > Back to list
+          </Button>
+        </Link>
         <ControlLabel>Izmijeni kandidata</ControlLabel>
         <form onSubmit={this.onSubmit}>
           <div className="submit-form">
             <FormGroup className="form-group-left">
-              <ControlLabel>Ime</ControlLabel>
+              <ControlLabel>Ime i prezime</ControlLabel>
               <FormControl
                 className=""
-                name="ime"
-                value={kandidat.ime}
-                onChange={this.onChange}
-              />
-            </FormGroup>
-            <FormGroup>
-              <ControlLabel>Prezime</ControlLabel>
-              <FormControl
-                name="prezime"
-                value={kandidat.prezime}
+                name="imePrezime"
+                value={kandidat.imePrezime}
                 onChange={this.onChange}
               />
             </FormGroup>
@@ -142,4 +152,17 @@ class EditKandidat extends Component {
   }
 }
 
-export default EditKandidat;
+function mapStateToProps(state) {
+  return {
+    kandidat: state.kandidat
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    getKandidat: kandidatActions.getKandidat,
+    updateKandidat: kandidatActions.updateKandidat
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditKandidat);
