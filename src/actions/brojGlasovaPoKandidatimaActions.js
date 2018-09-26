@@ -16,8 +16,18 @@ export function getBrojGlasovaPoKandidatima(params = {}) {
   };
 }
 
+export function getBrojGlasovaKandidataPoBirackimMjestima(params = {}) {
+  return dispatch => {
+    return brojGlasovaPoKandidatimaService.getAllPoBirackimMjestima(params)
+      .then((json) => {
+        dispatch(fetchDone(json));
+      });
+  };
+}
+
 const brojGlasovaPoKandidatimaActions = {
-  getBrojGlasovaPoKandidatima
+  getBrojGlasovaPoKandidatima,
+  getBrojGlasovaKandidataPoBirackimMjestima
 };
 
 export default brojGlasovaPoKandidatimaActions;

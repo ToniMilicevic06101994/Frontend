@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { FormControl, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import moment from 'moment';
-import DatePicker from 'react-datepicker';
 import DateHelper from '../../helpers/DateHelper';
 import izborActions from '../../actions/izborActions';
 import { withRouter } from 'react-router-dom';
@@ -14,9 +13,8 @@ class NewIzbor extends Component {
 
     this.state = {
       izbor: {
-        vrstaIzbora: '',
-        nivoIzbora: '',
-        datumOdrzavanja: null
+        vrstaIzboraId: '',
+        nivoIzboraId: ''
       }
     }
 
@@ -30,9 +28,8 @@ class NewIzbor extends Component {
   resetState() {
     this.setState({
       izbor: {
-        vrstaIzbora: this.props.vrstaIzbora || '',
-        nivoIzbora: this.props.nivoIzbora || '',
-        datumOdrzavanja: this.props.datumOdrzavanja || ''
+        vrstaIzboraId: this.props.vrstaIzboraId || '',
+        nivoIzboraId: this.props.nivoIzboraId || ''
       }
     });
   }
@@ -84,7 +81,7 @@ class NewIzbor extends Component {
               <FormControl
                 onChange={this.onSelectChange}
                 componentClass="select"
-                name="vrstaIzbora"
+                name="vrstaIzboraId"
                 placeholder="izaberi"
               >
                 <option value="">izaberi</option>
@@ -97,20 +94,13 @@ class NewIzbor extends Component {
               <FormControl
                 onChange={this.onSelectChange}
                 componentClass="select"
-                name="nivoIzbora"
+                name="nivoIzboraId"
                 placeholder="izaberi"
               >
                 <option value="">izaberi</option>
                 <option value="1">Opći</option>
                 <option value="2">Lokalni</option>
               </FormControl>
-            </FormGroup>
-            <FormGroup>
-              <ControlLabel>Datum održavanja</ControlLabel>
-              <DatePicker
-                dateFormat="DD/MM/YYYY"
-                onChange={this.onDateChange}
-              />
             </FormGroup>
 
             <div className="form-group form-group-buttons with-top-margin button-group">

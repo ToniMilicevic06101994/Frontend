@@ -7,7 +7,7 @@ export function fetchDone(res) {
   };
 }
 
-export function getKategorije(izborId) {
+export function getKategorije(izborId = 4) {
   return dispatch => {
     return izboriService.getCategories(izborId)
       .then((json) => {

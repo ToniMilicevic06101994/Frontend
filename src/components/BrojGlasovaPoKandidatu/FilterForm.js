@@ -5,17 +5,23 @@ import { bindActionCreators } from 'redux';
 import kategorijeActions from '../../actions/kategorijeActions.js';
 import kandidatiActions from '../../actions/kandidatiActions.js';
 import birackaMjestaActions from '../../actions/birackaMjestaActions.js';
-
+import brojGlasovaPoKandidatimaActions from '../../actions/brojGlasovaPoKandidatimaActions.js';
 
 class FilterForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      sortBy: ''
+      sortBy: '1'
     }
     this.onSelectChange = this.onSelectChange.bind(this);
   }
+
+  componentDidMount = () => {
+    this.props.getKategorije();
+    this.props.getKandidati();
+    this.props.getBirackaMjesta();
+  };
 
   onSelectChange = (e) => {
     this.setState({
@@ -23,24 +29,27 @@ class FilterForm extends Component {
     });
   };
 
-  createCategoryOptions(categories) {
-    if(categories){
-      return categories.map((category, index) => {
-        return (<option value={category.id} key={index}>{category.naziv}</option>);
+  createCategoryOptions() {
+    const kategorije = this.props.kategorije.payload;
+    if(kategorije.length > 0){
+      return kategorije.map((kategorija, index) => {
+        return (<option value={kategorija.id} key={index}>{kategorija.naziv}</option>);
       });
     }
   }
 
-  createKandidatOptions(kandidati) {
-    if(kandidati){
+  createKandidatOptions() {
+    const kandidati = this.props.kandidati.payload;
+    if(kandidati.length > 0){
       return kandidati.map((kandidat, index) => {
-        return (<option value={kandidati.id} key={index}>{kandidati.imePrezime}</option>);
+        return (<option value={kandidat.id} key={index}>{kandidat.imePrezime}</option>);
       });
     }
   }
 
-  createBirackoMjestoOptions(birackaMjesta) {
-    if(birackaMjesta){
+  createBirackoMjestoOptions() {
+    const birackaMjesta = this.props.birackaMjesta.payload;
+    if(birackaMjesta.length > 0){
       return birackaMjesta.map((birackoMjesto, index) => {
         return (<option value={birackoMjesto.id} key={index}>{birackoMjesto.naziv}</option>);
       });
@@ -117,7 +126,6 @@ class FilterForm extends Component {
             placeholder="izaberi"
             name="sortBy"
           >
-            <option value="">izaberi</option>
             <option value="1">kandidatu</option>
             <option value="2">biračkom mjestu</option>
           </FormControl>

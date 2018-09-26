@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 let izboriService = {
-  apiEndpoint: 'http://192.168.1.4:51575/api/izbor',
+  apiEndpoint: 'http://127.0.0.1:51575/api/izbori',
 
   getAll() {
     return axios.get(`${this.apiEndpoint}/all`)
@@ -9,11 +9,11 @@ let izboriService = {
   },
 
   getCategories(izborId) {
-    return axios.get(`${this.apiEndpoint}/kategorija/${izborId}`)
+    return axios.get(`${this.apiEndpoint}/kategorije/${izborId}`)
       .then(res => res);
   },
 
-  save(payload) {
+  save(payload) { 
     return axios.post(`${this.apiEndpoint}`, payload)
       .then(res => res);
   }

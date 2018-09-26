@@ -33,7 +33,7 @@ body {
 }
 
 .filter-form {
-  width: 30%;
+  width: 25%;
   padding: 15px;
   position: absolute;
 }
@@ -50,4 +50,8 @@ body {
 .kandidat-details-margins {
   margin-top: 30px;
   margin-left: 10px;
+}
+
+.filter-margin {
+  margin-left: 30%;
 }

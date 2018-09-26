@@ -12,63 +12,53 @@ class BrojGlasovaPoKandidatimaList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      brojGlasovaPoKandidatu: {
-        kategorijaId: null,
-        birackoMjestoId: null,
-        kandidatId: null
-      }
+      kategorijaId: 1,
+      birackoMjestoId: 1,
+      kandidatId: 1
     }
-
     this.onSelectChange = this.onSelectChange.bind(this);
   }
 
-  componentDidMount = () => {
-    this.props.getBrojGlasovaPoKandidatima();
-  };
-
   onSelectChange = (e) => {
     this.setState({
-      brojGlasovaPoKandidatu: {
-        ...this.state.brojGlasovaPoKandidatu,
-        [e.target.name]: e.target.value
-      }
+       [e.target.name]: e.target.value
+    },() => {
+      this.getList();
     });
-    this.getList();
   };
 
   resetState() {
     this.setState({
-      brojGlasovaPoKandidatu: {
-        kategorijaId: null,
-        birackoMjestoId: null,
-        kandidatId: null
-      }
+      kategorijaId: 1,
+      birackoMjestoId: 1,
+      kandidatId: 1
     });
   }
 
   getList = () => {
     if(this.state.kategorijaId && this.state.kandidatId){
-
+      this.props.getBrojGlasovaPoKandidatima({electionsId: 4, candidateId: this.state.kandidatId, categoryId: this.state.kategorijaId })
+      this.resetState();
     } else if (this.state.kategorijaId && this.state.birackoMjestoId) {
-
+      this.props.getBrojGlasovaKandidataPoBirackimMjestima({electionsId: 4, pollingStationId: this.state.birackoMjestoId, categoryId: this.state.kategorijaId })
+      this.resetState();
     }
-    this.resetState();
   };
 
   renderRows = () => {
-    const { brojGlasovaPoKandidatima } = this.props;
-    return brojGlasovaPoKandidatima.payload.map((brojGlasova) => {
-      let path = `/kandidat/${brojGlasova.id}`;
-      return (
-        <tr key={brojGlasova.id}>
-          <td> {brojGlasova.id} </td>
-          <td>
-            <Link to={path}> {brojGlasova.id} </Link>
-          </td>
-          <td> {brojGlasova.id} </td>
-        </tr>
-      );
-    });
+    const brojGlasovaPoKandidatima = this.props.brojGlasovaPoKandidatima.payload;
+    if(brojGlasovaPoKandidatima.length > 0) {
+      return brojGlasovaPoKandidatima.map((brojGlasova) => {
+        let path = `/brojGlasovaPoKandidatu/${brojGlasova.id}/edit`;
+        return (
+          <tr key={brojGlasova.id}>
+            <td> {brojGlasova.kandidatImePrezime} </td>
+            <td> <Link to={path}> {brojGlasova.birackoMjestoSifra} </Link></td>
+            <td> {brojGlasova.brojGlasova} </td>
+          </tr>
+        );
+      });
+    }
   };
 
   renderBrojGlasovaPoKandidatu() {
@@ -76,7 +66,7 @@ class BrojGlasovaPoKandidatimaList extends Component {
     const brojGlasova = this.props.brojGlasovaPoKandidatima.payload;
     if(brojGlasova.length > 0) {
       return (
-        <div>
+        <div className="filter-margin">
           <Table responsive>
             <ColumnsTitle columns={columns} />
             <tbody>
@@ -84,8 +74,8 @@ class BrojGlasovaPoKandidatimaList extends Component {
             </tbody>
           </Table>
         </div>
-      );
-    }
+      )
+    } 
   }
 
   render() {
@@ -103,15 +93,13 @@ class BrojGlasovaPoKandidatimaList extends Component {
 function mapStateToProps(state) {
   return {
     brojGlasovaPoKandidatima: state.brojGlasovaPoKandidatima,
-    kategorije: state.kategorije,
-    kandidati: state.kandidati,
-    birackaMjesta: state.birackaMjesta
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    getBrojGlasovaPoKandidatima: brojGlasovaPoKandidatimaActions.getBrojGlasovaPoKandidatima
+    getBrojGlasovaPoKandidatima: brojGlasovaPoKandidatimaActions.getBrojGlasovaPoKandidatima,
+    getBrojGlasovaKandidataPoBirackimMjestima: brojGlasovaPoKandidatimaActions.getBrojGlasovaKandidataPoBirackimMjestima
   }, dispatch);
 }
 

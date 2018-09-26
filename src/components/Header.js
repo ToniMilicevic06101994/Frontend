@@ -16,7 +16,6 @@ const Header = () => (
       <NavItem href="/birackaMjesta"> Biračka mjesta </NavItem>
       <NavItem href="/kandidati"> Kandidati </NavItem>
       <NavItem href="/politickiSubjekti"> Politički subjekti </NavItem>
-      <NavItem href="/izlaznost"> Izlaznost </NavItem>
       <NavItem href="/brojGlasovaPoKandidatu"> Glasovi kandidata </NavItem>
       <NavItem href="/brojGlasovaPoPolitickomSubjektu"> Glasovi političkih subjekata </NavItem>
     </Nav>

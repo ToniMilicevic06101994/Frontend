@@ -23,9 +23,9 @@ export function updateBrojGlasovaPoKandidatu(payload) {
   };
 }
 
-export function getBrojGlasovaPoKandidatu(brojGlasovaPoKandidatuId, params = {}) {
+export function getBrojGlasovaPoKandidatu(brojGlasovaPoKandidatuId) {
   return dispatch => {
-    return brojGlasovaPoKandidatimaService.get(brojGlasovaPoKandidatuId, params)
+    return brojGlasovaPoKandidatimaService.get({id: brojGlasovaPoKandidatuId})
       .then(json => {
         dispatch(fetchDone(json));
       });

@@ -11,10 +11,14 @@ class EditBrojGlasovaPoKandidatu extends Component {
     super(props);
     this.state = {
       brojGlasovaPoKandidatu: {
+        id: '',
         birackoMjestoSifra: '',
         birackoMjestoNaziv: '',
+        birackoMjestoId: '',
         kandidatImePrezime: '',
-        brojGlasova: ''
+        kandidatId: '',
+        brojGlasova: 0,
+        izboriId: ''
       }
     }
 
@@ -40,12 +44,13 @@ class EditBrojGlasovaPoKandidatu extends Component {
     const brojGlasovaPoKandidatu = this.props.brojGlasovaPoKandidatu.payload;
     this.setState({
       brojGlasovaPoKandidatu: {
+        id: brojGlasovaPoKandidatu.id || '',
         birackoMjestoSifra: brojGlasovaPoKandidatu.birackoMjestoSifra || '',
         birackoMjestoNaziv: brojGlasovaPoKandidatu.birackoMjestoNaziv || '',
         birackoMjestoId: brojGlasovaPoKandidatu.birackoMjestoId || '',
         kandidatImePrezime: brojGlasovaPoKandidatu.kandidatImePrezime || '',
         kandidatId: brojGlasovaPoKandidatu.kandidatId || '',
-        brojGlasova: brojGlasovaPoKandidatu.brojGlasova || '',
+        brojGlasova: brojGlasovaPoKandidatu.brojGlasova || 0,
         izboriId: brojGlasovaPoKandidatu.izboriId || ''
       }
     });
@@ -57,7 +62,7 @@ class EditBrojGlasovaPoKandidatu extends Component {
     let payload = this.state.brojGlasovaPoKandidatu;
     this.props.updateBrojGlasovaPoKandidatu(payload)
       .then(json => {
-        //this.props.history.push('/brojGlasovaPoKandidatu');
+        this.props.history.push('/brojGlasovaPoKandidatu');
       });
   }
 

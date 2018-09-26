@@ -7,6 +7,6 @@ export default class BrojGlasovaPoKandidatu {
     this.birackoMjestoId = data.birackoMjestoId || null;
     this.birackoMjestoSifra = data.birackoMjestoSifra || null;
     this.birackoMjestoNaziv = data.birackoMjestoNaziv || null;
-    this.brojGlasova = data.brojGlasova || null;
+    this.brojGlasova = data.brojGlasova || 0;
   }
 }
