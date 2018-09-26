@@ -10,13 +10,13 @@ export function saveDone(json) {
 export function fetchDone(res) {
   return {
     type: 'BROJ_GLASOVA_PO_POLITICKOM_SUBJEKTU_FETCHED',
-    payload: res.data[0]
+    payload: res.data
   };
 }
 
-export function updateBrojGlasovaPoPolitickomSubjektu(brojGlasovaPoPolitickomSubjektuId, payload) {
+export function updateBrojGlasovaPoPolitickomSubjektu(payload) {
   return dispatch => {
-    return brojGlasovaPoPolitickimSubjektimaService.update(brojGlasovaPoPolitickomSubjektuId, payload)
+    return brojGlasovaPoPolitickimSubjektimaService.update(payload)
       .then((json) => {
         dispatch(saveDone(json));
       });
@@ -24,9 +24,11 @@ export function updateBrojGlasovaPoPolitickomSubjektu(brojGlasovaPoPolitickomSub
 }
 
 export function getBrojGlasovaPoPolitickomSubjektu(brojGlasovaPoPolitickomSubjektuId, params = {}) {
-  return async dispatch => {
-    const res = await brojGlasovaPoPolitickimSubjektimaService.get(brojGlasovaPoPolitickomSubjektuId, params)
-    dispatch(fetchDone(res));
+  return dispatch => {
+    return brojGlasovaPoPolitickimSubjektimaService.get(brojGlasovaPoPolitickomSubjektuId, params)
+      .then(res => {
+        dispatch(fetchDone(res));
+      });
   };
 }
 

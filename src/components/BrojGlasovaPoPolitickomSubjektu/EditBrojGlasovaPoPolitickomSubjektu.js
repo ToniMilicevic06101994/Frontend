@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import { FormControl, FormGroup, ControlLabel, Button } from 'react-bootstrap';
-import izlaznostPoBirackomMjestuActions from '../../actions/izlaznostPoBirackomMjestuActions';
+import brojGlasovaPoPolitickomSubjektuActions from '../../actions/brojGlasovaPoPolitickomSubjektuActions';
 import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-class EditIzlaznostPoBirackomMjestu extends Component {
+class EditBrojGlasovaPoPolitickomSubjektu extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      izlaznostPoBirackomMjestu: {
+      brojGlasovaPoPolitickomSubjektu: {
         birackoMjesto: '',
-        brojGlasaca: '',
-        izasloGlasaca: ''
+        politickiSubjekt: '',
+        brojGlasova: ''
       }
     }
 
@@ -25,40 +24,42 @@ class EditIzlaznostPoBirackomMjestu extends Component {
   }
 
   componentWillMount = () => {
-    this.getIzlaznostDetails();
+    this.getBrojGlasovaDetails();
   };
 
-  getIzlaznostDetails = () => {
-    const izlaznostId = this.props.match.params.id;
-    this.props.getIzlaznostPoBirackomMjestu(izlaznostId)
+  getBrojGlasovaDetails = () => {
+    const brojGlasovaId = this.props.match.params.id;
+    this.props.getBrojGlasovaPoPolitickomSubjektu(brojGlasovaId)
       .then(json => {
         this.resetState();
       })
   };
 
   resetState() {
+    const brojGlasovaPoPolitickomSubjektu = this.props.brojGlasovaPoPolitickomSubjektu.payload;
     this.setState({
-      izlaznostPoBirackomMjestu: {
-        birackoMjesto: this.props.birackoMjesto || '',
-        brojGlasaca: this.props.brojGlasaca || '',
-        izasloGlasaca: this.props.izasloGlasaca || ''
+      brojGlasovaPoPolitickomSubjektu: {
+        birackoMjesto: brojGlasovaPoPolitickomSubjektu.birackoMjesto || '',
+        politickiSubjekt: brojGlasovaPoPolitickomSubjektu.politickiSubjekt || '',
+        brojGlasova: brojGlasovaPoPolitickomSubjektu.brojGlasova || ''
       }
     });
   }
 
   onSubmit(e) {
     e.preventDefault();
-    let payload = this.state.izlaznostPoBirackomMjestu;
-    this.props.updateIzlaznostPoBirackomMjestu(payload)
+
+    let payload = this.state.brojGlasovaPoPolitickomSubjektu;
+    this.props.updateBrojGlasovaPoPolitickomSubjektu(payload)
       .then(json => {
-        this.props.history.push('/izlaznost');
+        this.props.history.push('/brojGlasovaPoPolitickomSubjektu');
       });
   }
 
   onChange(e) {
     this.setState({
-      izlaznostPoBirackomMjestu: {
-        ...this.state.izlaznostPoBirackomMjestu,
+      brojGlasovaPoPolitickomSubjektu: {
+        ...this.state.brojGlasovaPoPolitickomSubjektu,
         [e.target.name]: e.target.value
       }
     });
@@ -70,18 +71,18 @@ class EditIzlaznostPoBirackomMjestu extends Component {
   }
 
   render() {
-    const { izlaznostPoBirackomMjestu } = this.state;
+    const { brojGlasovaPoPolitickomSubjektu } = this.state;
 
     return (
       <div>
-        <Link to={'/izlaznost'}>
+        <Link to={'/brojGlasovaPoPolitickomSubjektu'}>
           <Button
             className="link"
-            bsStyle="link"
-            > Back to list
+             bsStyle="link"
+             > Back to list
           </Button>
         </Link>
-        <ControlLabel>Unesi izlaznost po biračkom mjestu</ControlLabel>
+        <ControlLabel>Izmijeni broj glasova po politickom subjektu</ControlLabel>
         <form onSubmit={this.onSubmit}>
           <div className="submit-form">
             <FormGroup className="form-group-left">
@@ -89,27 +90,27 @@ class EditIzlaznostPoBirackomMjestu extends Component {
               <FormControl
                 className=""
                 name="birackoMjesto"
-                value={izlaznostPoBirackomMjestu.birackoMjesto}
+                value={brojGlasovaPoPolitickomSubjektu.birackoMjesto}
                 onChange={this.onChange}
               />
             </FormGroup>
             <FormGroup>
-              <ControlLabel>Broj glasača</ControlLabel>
+              <ControlLabel>Politički subjekt</ControlLabel>
               <FormControl
-                name="brojGlasaca"
-                value={izlaznostPoBirackomMjestu.brojGlasaca}
+                name="politickiSubjekt"
+                value={brojGlasovaPoPolitickomSubjektu.politickiSubjekt}
                 onChange={this.onChange}
               />
             </FormGroup>
             <FormGroup>
-              <ControlLabel>Izašlo glasača</ControlLabel>
+              <ControlLabel>Broj glasova</ControlLabel>
               <FormControl
-                name="izasloGlasaca"
-                value={izlaznostPoBirackomMjestu.izasloGlasaca}
+                name="brojGlasova"
+                value={brojGlasovaPoPolitickomSubjektu.brojGlasova}
                 onChange={this.onChange}
               />
             </FormGroup>
-        
+
             <div className="form-group form-group-buttons with-top-margin button-group">
               <Button
                 className="with-margin-right"
@@ -132,15 +133,15 @@ class EditIzlaznostPoBirackomMjestu extends Component {
 
 function mapStateToProps(state) {
   return {
-    izlaznostPoBirackomMjestu: state.izlaznostPoBirackomMjestu
+    brojGlasovaPoPolitickomSubjektu: state.brojGlasovaPoPolitickomSubjektu
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    getIzlaznostPoBirackomMjestu: izlaznostPoBirackomMjestuActions.getIzlaznostPoBirackomMjestu,
-    updateIzlaznostPoBirackomMjestu: izlaznostPoBirackomMjestuActions.updateIzlaznostPoBirackomMjestu
+    getBrojGlasovaPoPolitickomSubjektu: brojGlasovaPoPolitickomSubjektuActions.getBrojGlasovaPoPolitickomSubjektu,
+    updateBrojGlasovaPoPolitickomSubjektu: brojGlasovaPoPolitickomSubjektuActions.updateBrojGlasovaPoPolitickomSubjektu
   }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditIzlaznostPoBirackomMjestu);
+export default connect(mapStateToProps, mapDispatchToProps)(EditBrojGlasovaPoPolitickomSubjektu);

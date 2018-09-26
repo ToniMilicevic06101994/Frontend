@@ -10,13 +10,13 @@ export function saveDone(json) {
 export function fetchDone(res) {
   return {
     type: 'BROJ_GLASOVA_PO_KANDIDATU_FETCHED',
-    payload: res.data[0]
+    payload: res.data
   };
 }
 
-export function updateBrojGlasovaPoKandidatu(brojGlasovaPoKandidatuId, payload) {
+export function updateBrojGlasovaPoKandidatu(payload) {
   return dispatch => {
-    return brojGlasovaPoKandidatimaService.update(brojGlasovaPoKandidatuId, payload)
+    return brojGlasovaPoKandidatimaService.update(payload)
       .then((json) => {
         dispatch(saveDone(json));
       });
@@ -24,9 +24,11 @@ export function updateBrojGlasovaPoKandidatu(brojGlasovaPoKandidatuId, payload) 
 }
 
 export function getBrojGlasovaPoKandidatu(brojGlasovaPoKandidatuId, params = {}) {
-  return async dispatch => {
-    const res = await brojGlasovaPoKandidatimaService.get(brojGlasovaPoKandidatuId, params)
-    dispatch(fetchDone(res));
+  return dispatch => {
+    return brojGlasovaPoKandidatimaService.get(brojGlasovaPoKandidatuId, params)
+      .then(json => {
+        dispatch(fetchDone(json));
+      });
   };
 }
 

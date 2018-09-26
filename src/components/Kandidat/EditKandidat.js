@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 class EditKandidat extends Component {
   constructor(props) {
     super(props);
@@ -52,7 +53,7 @@ class EditKandidat extends Component {
   }
 
   onSubmit(e) {
-  
+    e.preventDefault();
 
     let payload = this.state.kandidat;
     this.props.updateKandidat(payload)

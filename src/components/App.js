@@ -12,15 +12,14 @@ import NewKandidat from '../components/Kandidat/NewKandidat';
 import EditKandidat from '../components/Kandidat/EditKandidat';
 import EditPolitičkiSubjekt from '../components/PolitickiSubjekt/EditPolitičkiSubjekt';
 import EditIzlaznostPoBirackomMjestu from '../components/IzlaznostPoBirackomMjestu/EditIzlaznostPoBirackomMjestu';
-import IzlaznostPoBirackomMjestuDetailsContainer from '../components/IzlaznostPoBirackomMjestu/IzlaznostPoBirackomMjestuDetailsContainer';
-import BrojGlasovaPoKandidatuDetailsContainer from '../components/BrojGlasovaPoKandidatu/BrojGlasovaPoKandidatuDetailsContainer';
-import BrojGlasovaPoPolitickomSubjektuDetailsContainer from '../components/BrojGlasovaPoPolitickomSubjektu/BrojGlasovaPoPolitickomSubjektuDetailsContainer';
 import NewPolitickiSubjekt from '../components/PolitickiSubjekt/NewPolitickiSubjekt';
 import KandidatList from '../components/Kandidat/KandidatList';
 import PolitickiSubjekatList from '../components/PolitickiSubjekt/PolitickiSubjekatList';
 import IzlaznostList from '../components/IzlaznostPoBirackomMjestu/IzlaznostList';
 import BrojGlasovaPoKandidatuList from '../components/BrojGlasovaPoKandidatu/BrojGlasovaPoKandidatuList';
 import BrojGlasovaPoPolitickomSubjektuList from '../components/BrojGlasovaPoPolitickomSubjektu/BrojGlasovaPoPolitickomSubjektuList';
+import EditBrojGlasovaPoKandidatu from '../components/BrojGlasovaPoKandidatu/EditBrojGlasovaPoKandidatu';
+import EditBrojGlasovaPoPolitickomSubjektu from '../components/BrojGlasovaPoPolitickomSubjektu/EditBrojGlasovaPoPolitickomSubjektu';
 
 const App = () => (
   <div className="container">
@@ -40,13 +39,12 @@ const App = () => (
         <Route exact path="/politickiSubjekti" component={PolitickiSubjekatList} />
         <Route exact path="/politickiSubjekt/new" component={NewPolitickiSubjekt} />
         <Route exact path="/politickiSubjekt/:id/edit" component={EditPolitičkiSubjekt} />
-        <Route exact path="/currency/:id/edit" component={EditIzlaznostPoBirackomMjestu} />
-        <Route exact path="/currency/:id" component={IzlaznostPoBirackomMjestuDetailsContainer} />
-        <Route exact path="/brojGlasovaPoKandidatu/:id" component={BrojGlasovaPoKandidatuDetailsContainer} />
-        <Route exact path="/brojGlasovaPoPolitickomSubjektu/:id" component={BrojGlasovaPoPolitickomSubjektuDetailsContainer} />
         <Route exact path="/izlaznost" component={IzlaznostList} />
+        <Route exact path="/izlaznost/:id/edit" component={EditIzlaznostPoBirackomMjestu} />
         <Route exact path="/brojGlasovaPoKandidatu" component={BrojGlasovaPoKandidatuList} />
+        <Route exact path="/brojGlasovaPoKandidatu/:id/edit" component={EditBrojGlasovaPoKandidatu} />
         <Route exact path="/brojGlasovaPoPolitickomSubjektu" component={BrojGlasovaPoPolitickomSubjektuList} />
+        <Route exact path="/brojGlasovaPoPolitickomSubjektu/:id/edit" component={EditBrojGlasovaPoPolitickomSubjektu} />
       </div>
     </BrowserRouter>
   </div>

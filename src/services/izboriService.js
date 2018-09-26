@@ -1,15 +1,15 @@
 import axios from 'axios';
 
 let izboriService = {
-  apiEndpoint: 'http://127.0.0.1:51575/api',
-  
+  apiEndpoint: 'http://192.168.1.4:51575/api/izbor',
+
   getAll() {
-    return axios.get(`${this.apiEndpoint}/izbori/all`)
+    return axios.get(`${this.apiEndpoint}/all`)
       .then(res => res);
   },
 
   save(payload) {
-    return axios.post(`${this.apiEndpoint}`, { params: payload })
+    return axios.post(`${this.apiEndpoint}`, payload)
       .then(res => res);
   }
 }

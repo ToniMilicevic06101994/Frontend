@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { FormControl, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import moment from 'moment';
+import DatePicker from 'react-datepicker';
 import DateHelper from '../../helpers/DateHelper';
 import izborActions from '../../actions/izborActions';
-import {  withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 class NewIzbor extends Component {
   constructor(props) {
@@ -11,17 +14,17 @@ class NewIzbor extends Component {
 
     this.state = {
       izbor: {
-        vrstaIzbora: props.vrstaIzbora || '',
-        nivoIzbora: props.nivoIzbora || '',
+        vrstaIzbora: '',
+        nivoIzbora: '',
         datumOdrzavanja: null
       }
     }
 
     this.onSubmit = this.onSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
     this.resetState = this.resetState.bind(this);
     this.onDateChange  = this.onDateChange.bind(this);
     this.onCancelClick = this.onCancelClick.bind(this);
+    this.onSelectChange = this.onSelectChange.bind(this);
   }
 
   resetState() {
@@ -38,21 +41,10 @@ class NewIzbor extends Component {
     e.preventDefault();
 
     let payload = this.state.izbor;
-
-    /*if (this.props.accountId){
-      payload.account_id = this.props.accountId;
-    }*/
-    izborActions.createIzbor(payload);
-    this.props.history.push('/')
-  }
-
-  onChange(e) {
-    this.setState({
-      izbor: {
-        ...this.state.izbor,
-        [e.target.name]: e.target.value
-      }
-    });
+    this.props.createIzbor(payload)
+      .then(json => {
+        this.props.history.push('/');
+      });
   }
 
   onDateChange(date) {
@@ -71,15 +63,14 @@ class NewIzbor extends Component {
     this.resetState();
   }
 
-/*  renderSelectListOptions = () => {
-    const options = organizationHelper.getDropdownList(this.props.stagesMapping);
-
-    return options.map((option, index) => {
-      return (
-        <option key={index} value={option.label}>{option.label}</option>
-      )
-    })
-  };*/
+  onSelectChange = (e) => {
+    this.setState({
+      izbor: {
+        ...this.state.izbor,
+        [e.target.name]: e.target.value
+      }
+    });
+  };
 
   render() {
     const { izbor } = this.state;
@@ -92,22 +83,33 @@ class NewIzbor extends Component {
             <FormGroup className="form-group-left">
               <ControlLabel>Vrsta izbora</ControlLabel>
               <FormControl
-                name="vrstaIzbora"
-                value={izbor.vrstaIzbora}
-                onChange={this.onChange}
-              />
+                onChange={this.onSelectChange}
+                componentClass="select"
+                placeholder="izaberi"
+              >
+                <option value="">izaberi</option>
+                <option value="1">Redovni</option>
+                <option value="2">Prijevremeni</option>
+              </FormControl>
             </FormGroup>
             <FormGroup>
               <ControlLabel>Nivo izbora </ControlLabel>
               <FormControl
-                name="nivoIzbora"
-                value={izbor.nivoIzbora}
-                onChange={this.onChange}
-              />
+                onChange={this.onSelectChange}
+                componentClass="select"
+                placeholder="izaberi"
+              >
+                <option value="">izaberi</option>
+                <option value="1">Opći</option>
+                <option value="2">Lokalni</option>
+              </FormControl>
             </FormGroup>
             <FormGroup>
               <ControlLabel>Datum održavanja</ControlLabel>
-
+              <DatePicker
+                dateFormat="DD/MM/YYYY"
+                onChange={this.onDateChange}
+              />
             </FormGroup>
 
             <div className="form-group form-group-buttons with-top-margin button-group">
@@ -130,4 +132,17 @@ class NewIzbor extends Component {
   }
 }
 
-export default NewIzbor;
+
+function mapStateToProps(state) {
+  return {
+    izbor: state.izbor
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    createIzbor: izborActions.createIzbor
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewIzbor);

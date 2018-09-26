@@ -25,7 +25,6 @@ export function saveKandidat(izbor) {
 
 export function deleteKandidat(kandidatId) {
   return dispatch => {
-    console.log('delete service')
     return kandidatiService.delete(kandidatId)
       .then(json => json);
   }

@@ -4,6 +4,7 @@ import kandidatActions from '../../actions/kandidatActions';
 import { withRouter} from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+
 class NewKandidat extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +43,7 @@ class NewKandidat extends Component {
     let payload = this.state.kandidat;
     this.props.saveKandidat(payload)
       .then(json => {
-        this.props.history.push('/kandidati')
+        this.props.history.push('/kandidati');
       });
   }
 

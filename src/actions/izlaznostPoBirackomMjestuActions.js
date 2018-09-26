@@ -10,13 +10,13 @@ export function saveDone(json) {
 export function fetchDone(res) {
   return {
     type: 'IZLAZNOST_PO_BIRACKOM_MJESTU_FETCHED',
-    payload: res.data[0]
+    payload: res.data
   };
 }
 
-export function updateIzlaznostPoBirackomMjestu(izlaznostPoBirackomMjestuId, payload) {
+export function updateIzlaznostPoBirackomMjestu(payload) {
   return dispatch => {
-    return izlaznostPoBirackimMjestimaService.update(izlaznostPoBirackomMjestuId, payload)
+    return izlaznostPoBirackimMjestimaService.update(payload)
       .then((json) => {
         dispatch(saveDone(json));
       });
@@ -24,9 +24,11 @@ export function updateIzlaznostPoBirackomMjestu(izlaznostPoBirackomMjestuId, pay
 }
 
 export function getIzlaznostPoBirackomMjestu(izlaznostPoBirackomMjestuId, params = {}) {
-  return async dispatch => {
-    const res = await izlaznostPoBirackimMjestimaService.get(izlaznostPoBirackomMjestuId, params)
-    dispatch(fetchDone(res));
+  return dispatch => {
+    return izlaznostPoBirackimMjestimaService.get(izlaznostPoBirackomMjestuId, params)
+      .then(json => {
+        dispatch(fetchDone(json));
+      });
   };
 }
 
