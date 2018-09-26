@@ -32,6 +32,12 @@ body {
   position: absolute;
 }
 
+.filter-form {
+  width: 30%;
+  padding: 15px;
+  position: absolute;
+}
+
 .with-top-margin {
   margin-top: 10px;
 }

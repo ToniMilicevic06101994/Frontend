@@ -73,7 +73,6 @@ class NewIzbor extends Component {
   };
 
   render() {
-    const { izbor } = this.state;
 
     return (
       <div>
@@ -85,6 +84,7 @@ class NewIzbor extends Component {
               <FormControl
                 onChange={this.onSelectChange}
                 componentClass="select"
+                name="vrstaIzbora"
                 placeholder="izaberi"
               >
                 <option value="">izaberi</option>
@@ -97,6 +97,7 @@ class NewIzbor extends Component {
               <FormControl
                 onChange={this.onSelectChange}
                 componentClass="select"
+                name="nivoIzbora"
                 placeholder="izaberi"
               >
                 <option value="">izaberi</option>

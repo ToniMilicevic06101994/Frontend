@@ -11,8 +11,9 @@ class EditBrojGlasovaPoKandidatu extends Component {
     super(props);
     this.state = {
       brojGlasovaPoKandidatu: {
-        birackoMjesto: '',
-        kandidat: '',
+        birackoMjestoSifra: '',
+        birackoMjestoNaziv: '',
+        kandidatImePrezime: '',
         brojGlasova: ''
       }
     }
@@ -39,9 +40,13 @@ class EditBrojGlasovaPoKandidatu extends Component {
     const brojGlasovaPoKandidatu = this.props.brojGlasovaPoKandidatu.payload;
     this.setState({
       brojGlasovaPoKandidatu: {
-        birackoMjesto: brojGlasovaPoKandidatu.birackoMjesto || '',
-        kandidat: brojGlasovaPoKandidatu.kandidat || '',
-        brojGlasova: brojGlasovaPoKandidatu.brojGlasova || ''
+        birackoMjestoSifra: brojGlasovaPoKandidatu.birackoMjestoSifra || '',
+        birackoMjestoNaziv: brojGlasovaPoKandidatu.birackoMjestoNaziv || '',
+        birackoMjestoId: brojGlasovaPoKandidatu.birackoMjestoId || '',
+        kandidatImePrezime: brojGlasovaPoKandidatu.kandidatImePrezime || '',
+        kandidatId: brojGlasovaPoKandidatu.kandidatId || '',
+        brojGlasova: brojGlasovaPoKandidatu.brojGlasova || '',
+        izboriId: brojGlasovaPoKandidatu.izboriId || ''
       }
     });
   }
@@ -52,7 +57,7 @@ class EditBrojGlasovaPoKandidatu extends Component {
     let payload = this.state.brojGlasovaPoKandidatu;
     this.props.updateBrojGlasovaPoKandidatu(payload)
       .then(json => {
-        this.props.history.push('/brojGlasovaPoKandidatu');
+        //this.props.history.push('/brojGlasovaPoKandidatu');
       });
   }
 
@@ -85,20 +90,30 @@ class EditBrojGlasovaPoKandidatu extends Component {
         <ControlLabel>Izmijeni broj glasova po kandidatu</ControlLabel>
         <form onSubmit={this.onSubmit}>
           <div className="submit-form">
-            <FormGroup className="form-group-left">
-              <ControlLabel>Biračko mjesto</ControlLabel>
+            <FormGroup>
+              <ControlLabel>Ime i prezime kandidata</ControlLabel>
               <FormControl
-                className=""
-                name="birackoMjesto"
-                value={brojGlasovaPoKandidatu.birackoMjesto}
+                disabled
+                name="kandidatImePrezime"
+                value={brojGlasovaPoKandidatu.kandidatImePrezime}
                 onChange={this.onChange}
               />
             </FormGroup>
-            <FormGroup>
-              <ControlLabel>Kandidat</ControlLabel>
+            <FormGroup className="form-group-left">
+              <ControlLabel>Biračko mjesto - šifra</ControlLabel>
               <FormControl
-                name="kandidat"
-                value={brojGlasovaPoKandidatu.kandidat}
+                disabled
+                name="birackoMjestoSifra"
+                value={brojGlasovaPoKandidatu.birackoMjestoSifra}
+                onChange={this.onChange}
+              />
+            </FormGroup>
+            <FormGroup className="form-group-left">
+              <ControlLabel>Naziv biračkog mjesta</ControlLabel>
+              <FormControl
+                disabled
+                name="birackoMjestoNaziv"
+                value={brojGlasovaPoKandidatu.birackoMjestoNaziv}
                 onChange={this.onChange}
               />
             </FormGroup>

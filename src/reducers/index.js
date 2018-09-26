@@ -16,6 +16,7 @@ import brojGlasovaPoPolitickomSubjektuReducer from './brojGlasovaPoPolitickomSub
 import brojGlasovaPoPolitickimSubjektimaReducer from './brojGlasovaPoPolitickimSubjektimaReducer';
 import izlaznostPoBirackimMjestimaReducer from './izlaznostPoBirackimMjestimaReducer';
 import izlaznostPoBirackomMjestuReducer from './izlaznostPoBirackomMjestuReducer';
+import kategorijeReducer from './kategorijeReducer';
 
 export default combineReducers({
   birackaMjesta: birackaMjestaReducer,
@@ -34,5 +35,6 @@ export default combineReducers({
   brojGlasovaPoPolitickomSubjektu: brojGlasovaPoPolitickomSubjektuReducer,
   brojGlasovaPoPolitickimSubjektima: brojGlasovaPoPolitickimSubjektimaReducer,
   izlaznostPoBirackomMjestu: izlaznostPoBirackomMjestuReducer,
-  izlaznostPoBirackimMjestima: izlaznostPoBirackimMjestimaReducer
+  izlaznostPoBirackimMjestima: izlaznostPoBirackimMjestimaReducer,
+  kategorije: kategorijeReducer
 });

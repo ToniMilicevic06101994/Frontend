@@ -1,8 +1,12 @@
 export default class BrojGlasovaPoKandidatu {
   constructor(data) {
     this.id = data.id;
-    this.kandidat = data.sifra || null;
-    this.birackoMjesto = data.naziv || null;
+    this.kandidatId = data.kandidatId || null;
+    this.kandidatImePrezime = data.kandidatImePrezime || null;
+    this.izboriId = data.izboriId || null;
+    this.birackoMjestoId = data.birackoMjestoId || null;
+    this.birackoMjestoSifra = data.birackoMjestoSifra || null;
+    this.birackoMjestoNaziv = data.birackoMjestoNaziv || null;
     this.brojGlasova = data.brojGlasova || null;
   }
 }

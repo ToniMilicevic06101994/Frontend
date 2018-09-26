@@ -6,16 +6,59 @@ import { Table } from 'react-bootstrap';
 import brojGlasovaPoKandidatimaActions from '../../actions/brojGlasovaPoKandidatimaActions.js';
 import ColumnsTitle from '../shared/ColumnsTitle';
 import { Link } from 'react-router-dom';
+import FilterForm from './FilterForm';
 
 class BrojGlasovaPoKandidatimaList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      brojGlasovaPoKandidatu: {
+        kategorijaId: null,
+        birackoMjestoId: null,
+        kandidatId: null
+      }
+    }
+
+    this.onSelectChange = this.onSelectChange.bind(this);
+  }
+
   componentDidMount = () => {
     this.props.getBrojGlasovaPoKandidatima();
+  };
+
+  onSelectChange = (e) => {
+    this.setState({
+      brojGlasovaPoKandidatu: {
+        ...this.state.brojGlasovaPoKandidatu,
+        [e.target.name]: e.target.value
+      }
+    });
+    this.getList();
+  };
+
+  resetState() {
+    this.setState({
+      brojGlasovaPoKandidatu: {
+        kategorijaId: null,
+        birackoMjestoId: null,
+        kandidatId: null
+      }
+    });
+  }
+
+  getList = () => {
+    if(this.state.kategorijaId && this.state.kandidatId){
+
+    } else if (this.state.kategorijaId && this.state.birackoMjestoId) {
+
+    }
+    this.resetState();
   };
 
   renderRows = () => {
     const { brojGlasovaPoKandidatima } = this.props;
     return brojGlasovaPoKandidatima.payload.map((brojGlasova) => {
-      let path = `/currency/${brojGlasova.id}`;
+      let path = `/kandidat/${brojGlasova.id}`;
       return (
         <tr key={brojGlasova.id}>
           <td> {brojGlasova.id} </td>
@@ -45,11 +88,11 @@ class BrojGlasovaPoKandidatimaList extends Component {
     }
   }
 
-
   render() {
     return (
-      <DocumentTitle title="Br. Glasova Po Kandidatu: Lista">
+      <DocumentTitle title="Glasovi Kandidata: Lista">
         <div>
+          <FilterForm onSelectChange={this.onSelectChange}/>
           {this.renderBrojGlasovaPoKandidatu()}
         </div>
       </DocumentTitle>
@@ -59,7 +102,10 @@ class BrojGlasovaPoKandidatimaList extends Component {
 
 function mapStateToProps(state) {
   return {
-    brojGlasovaPoKandidatima: state.brojGlasovaPoKandidatima
+    brojGlasovaPoKandidatima: state.brojGlasovaPoKandidatima,
+    kategorije: state.kategorije,
+    kandidati: state.kandidati,
+    birackaMjesta: state.birackaMjesta
   }
 }
 

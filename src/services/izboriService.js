@@ -8,6 +8,11 @@ let izboriService = {
       .then(res => res);
   },
 
+  getCategories(izborId) {
+    return axios.get(`${this.apiEndpoint}/kategorija/${izborId}`)
+      .then(res => res);
+  },
+
   save(payload) {
     return axios.post(`${this.apiEndpoint}`, payload)
       .then(res => res);
