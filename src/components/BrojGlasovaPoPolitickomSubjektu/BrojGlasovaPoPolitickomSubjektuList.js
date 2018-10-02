@@ -6,26 +6,61 @@ import { Table } from 'react-bootstrap';
 import brojGlasovaPoPolitickimSubjektimaActions from '../../actions/brojGlasovaPoPolitickimSubjektimaActions.js';
 import ColumnsTitle from '../shared/ColumnsTitle';
 import { Link } from 'react-router-dom';
+import FilterForm from './FilterForm';
 
 class BrojGlasovaPoPolitickomSubjektuList extends Component {
-  componentDidMount = () => {
-    this.props.getBrojGlasovaPoPolitickimSubjektima();
+  constructor(props) {
+    super(props);
+    this.state = {
+      kategorijaId: 1,
+      birackoMjestoId: 1,
+      politickiSubjektId: 1
+    }
+    this.onSelectChange = this.onSelectChange.bind(this);
+  }
+
+  onSelectChange = (e) => {
+    this.setState({
+       [e.target.name]: e.target.value
+    },() => {
+      this.getList();
+    });
+  };
+
+  resetState() {
+    this.setState({
+      kategorijaId: 1,
+      birackoMjestoId: 1,
+      politickiSubjektId: 1
+    });
+  }
+
+  getList = () => {
+    if(this.state.kategorijaId && this.state.politickiSubjektId){
+      this.props.getBrojGlasovaPoPolitickimSubjektima({electionsId: 4, politicalSubjectId: this.state.politickiSubjektId, categoryId: this.state.kategorijaId })
+      this.resetState();
+    } else if (this.state.kategorijaId && this.state.birackoMjestoId) {
+      this.props.getBrojGlasovaPolitickihSubjekataPoBirackimMjestima({electionsId: 4, pollingStationId: this.state.birackoMjestoId, categoryId: this.state.kategorijaId })
+      this.resetState();
+    }
   };
 
   renderRows = () => {
     const { brojGlasovaPoPolitickimSubjektima } = this.props;
-    return brojGlasovaPoPolitickimSubjektima.payload.map((brojGlasova) => {
-      let path = `/currency/${brojGlasova.id}`;
-      return (
-        <tr key={brojGlasova.id}>
-          <td> {brojGlasova.id} </td>
-          <td>
-            <Link to={path}> {brojGlasova.id} </Link>
-          </td>
-          <td> {brojGlasova.id} </td>
-        </tr>
-      );
-    });
+    if(brojGlasovaPoKandidatima.length > 0) {
+      return brojGlasovaPoPolitickimSubjektima.payload.map((brojGlasova) => {
+        let path = `/brojGlasovaPoPolitickomSubjektu/${brojGlasova.id}/edit`;
+        return (
+          <tr key={brojGlasova.id}>
+            <td> {brojGlasova.politickiSubjektNaziv} </td>
+            <td>
+              <Link to={path}> {brojGlasova.politickiSubjektSifra} </Link>
+            </td>
+            <td> {brojGlasova.brojGlasova} </td>
+          </tr>
+        );
+      });
+    }
   };
 
   renderBrojGlasovaPoPolitickomSubjektu() {
@@ -50,6 +85,7 @@ class BrojGlasovaPoPolitickomSubjektuList extends Component {
     return (
       <DocumentTitle title="Br. Glasova Po Političkom subjektu: Lista">
         <div>
+          <FilterForm onSelectChange={this.onSelectChange}/>
           {this.renderBrojGlasovaPoPolitickomSubjektu()}
         </div>
       </DocumentTitle>
@@ -65,7 +101,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    getBrojGlasovaPoPolitickimSubjektima: brojGlasovaPoPolitickimSubjektimaActions.getBrojGlasovaPoPolitickimSubjektima
+    getBrojGlasovaPoPolitickimSubjektima: brojGlasovaPoPolitickimSubjektimaActions.getBrojGlasovaPoPolitickimSubjektima,
+    getBrojGlasovaPolitickihSubjekataPoBirackimMjestima: brojGlasovaPoPolitickimSubjektimaActions.getBrojGlasovaPolitickihSubjekataPoBirackimMjestima
   }, dispatch);
 }
 

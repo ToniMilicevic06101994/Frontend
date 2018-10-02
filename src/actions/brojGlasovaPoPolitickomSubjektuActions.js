@@ -25,7 +25,7 @@ export function updateBrojGlasovaPoPolitickomSubjektu(payload) {
 
 export function getBrojGlasovaPoPolitickomSubjektu(brojGlasovaPoPolitickomSubjektuId, params = {}) {
   return dispatch => {
-    return brojGlasovaPoPolitickimSubjektimaService.get(brojGlasovaPoPolitickomSubjektuId, params)
+    return brojGlasovaPoPolitickimSubjektimaService.get({id: brojGlasovaPoPolitickomSubjektuId})
       .then(res => {
         dispatch(fetchDone(res));
       });

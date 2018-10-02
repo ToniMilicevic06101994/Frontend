@@ -75,7 +75,7 @@ class BrojGlasovaPoKandidatimaList extends Component {
           </Table>
         </div>
       )
-    } 
+    }
   }
 
   render() {

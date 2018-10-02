@@ -16,8 +16,18 @@ export function getBrojGlasovaPoPolitickimSubjektima(params = {}) {
   };
 }
 
+export function getBrojGlasovaPolitickihSubjekataPoBirackimMjestima(params = {}) {
+  return dispatch => {
+    return brojGlasovaPoPolitickimSubjektimaService.getAllPoBirackimMjestima(params)
+      .then((json) => {
+        dispatch(fetchDone(json));
+      });
+  };
+}
+
 const brojGlasovaPoPolitickimSubjektimaActions = {
-  getBrojGlasovaPoPolitickimSubjektima
+  getBrojGlasovaPoPolitickimSubjektima,
+  getBrojGlasovaPolitickihSubjekataPoBirackimMjestima
 };
 
 export default brojGlasovaPoPolitickimSubjektimaActions;

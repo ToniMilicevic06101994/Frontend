@@ -11,8 +11,17 @@ class EditBrojGlasovaPoPolitickomSubjektu extends Component {
     super(props);
     this.state = {
       brojGlasovaPoPolitickomSubjektu: {
-        birackoMjesto: '',
-        politickiSubjekt: '',
+        id: '',
+        politickiSubjektId: '',
+        politickiSubjektSifra: '',
+        politickiSubjektNaziv: '',
+        izboriId: '',
+        izbornaJedinicaId: '',
+        kategorijaId: '',
+        kategorijaNaziv: '',
+        birackoMjestoId: '',
+        birackoMjestoSifra: '',
+        birackoMjestoNaziv: '',
         brojGlasova: ''
       }
     }
@@ -39,8 +48,17 @@ class EditBrojGlasovaPoPolitickomSubjektu extends Component {
     const brojGlasovaPoPolitickomSubjektu = this.props.brojGlasovaPoPolitickomSubjektu.payload;
     this.setState({
       brojGlasovaPoPolitickomSubjektu: {
-        birackoMjesto: brojGlasovaPoPolitickomSubjektu.birackoMjesto || '',
-        politickiSubjekt: brojGlasovaPoPolitickomSubjektu.politickiSubjekt || '',
+        id: brojGlasovaPoPolitickomSubjektu.id || '',
+        politickiSubjektId: brojGlasovaPoPolitickomSubjektu.politickiSubjektId || '',
+        politickiSubjektSifra: brojGlasovaPoPolitickomSubjektu.politickiSubjektSifra || '',
+        politickiSubjektNaziv: brojGlasovaPoPolitickomSubjektu. politickiSubjektNaziv || '',
+        izboriId: brojGlasovaPoPolitickomSubjektu.izboriId || '',
+        izbornaJedinicaId: brojGlasovaPoPolitickomSubjektu.izbornaJedinicaId || '',
+        kategorijaId: brojGlasovaPoPolitickomSubjektu.kategorijaId || '',
+        kategorijaNaziv: brojGlasovaPoPolitickomSubjektu.kategorijaNaziv || '',
+        birackoMjestoId: brojGlasovaPoPolitickomSubjektu.birackoMjestoId || '',
+        birackoMjestoSifra: brojGlasovaPoPolitickomSubjektu.birackoMjestoSifra || '',
+        birackoMjestoNaziv: brojGlasovaPoPolitickomSubjektu.birackoMjestoNaziv || '',
         brojGlasova: brojGlasovaPoPolitickomSubjektu.brojGlasova || ''
       }
     });

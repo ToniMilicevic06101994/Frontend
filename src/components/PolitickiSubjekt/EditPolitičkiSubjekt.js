@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 class EditPolitickiSubjekt extends Component {
   constructor(props) {
     super(props);
